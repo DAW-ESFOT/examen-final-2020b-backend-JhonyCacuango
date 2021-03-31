@@ -12,16 +12,22 @@ class ProductsTableSeeder extends Seeder
      */
     public function run()
     {
-        // Vaciar la tabla.
         Product::truncate();
         $faker = \Faker\Factory::create();
 
-        for ($i = 0; $i < 50; $i++) {
-            Product::create([
-                'name' => $faker->firstName,
-                'code' => $faker->uuid,
-                'price' => $faker->randomNumber(2),
-                'status' => 'active',
-            ]); }
+        $users = \App\User::all();
+        foreach ($users as $user) {
+
+            JWTAuth::attempt(['email' => $user->email, 'password' => '123123']);
+
+            for ($i = 0; $i < 10; $i++) {
+                Product::create([
+                    'name' => $faker->firstName,
+                    'code' => $faker->uuid,
+                    'price' => $faker->randomNumber(2),
+                    'status' => 'active',
+                ]);
+            }
+        };
     }
 }

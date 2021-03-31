@@ -12,6 +12,8 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+
     public function index()
     {
         return response()->json(Product::all(), 200);
